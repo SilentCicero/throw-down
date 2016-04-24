@@ -35,11 +35,11 @@ const Component = function(_yield) {
     var id, open
 
     function onload (node) {
-        id = node.dataset.yoid
+        id = node.dataset.tdid
     }
 
     function onupdate (node) {
-        id = node.dataset.yoid
+        id = node.dataset.tdid
     }
 
     function onunload (node) {
