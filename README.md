@@ -56,6 +56,8 @@ const Component = function(_yield) {
 
     return connect(render(_yield), onload, onunload, onupdate)
 }
+
+document.body.appendChild(Component(Component()));
 ```
 
 ### MutationObserver
