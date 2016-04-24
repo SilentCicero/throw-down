@@ -1,11 +1,11 @@
-var components = require("./components"), retrieve = require("./retrieve")
+var retrieve = require("./retrieve")
 
-function main (morphdom) {
-  return function update (el, newEl, opts) {
+function update (morphdom) {
+  return function main (el, newEl, opts) {
     el = typeof el === "string" && retrieve(el).node || el
     newEl.dataset.tdid = el.dataset.tdid
     morphdom(el, newEl, opts)
   }
 }
 
-module.exports = main
+module.exports = update

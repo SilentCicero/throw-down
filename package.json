@@ -1,15 +1,57 @@
 {
-  "name": "throw-down",
-  "version": "0.0.3",
+  "_args": [
+    [
+      "throw-down",
+      "/home/nick/github/yoyo-playground"
+    ]
+  ],
+  "_from": "throw-down@latest",
+  "_id": "throw-down@0.0.4",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/throw-down",
+  "_nodeVersion": "5.6.0",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/throw-down-0.0.3.tgz_1461535184090_0.25822646310552955"
+  },
+  "_npmUser": {
+    "email": "thenickdodson@gmail.com",
+    "name": "silentcicero"
+  },
+  "_npmVersion": "3.8.5",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "throw-down",
+    "raw": "throw-down",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_shasum": "8a07a81ff6a63344d4535d56083019a6cddc8504",
+  "_shrinkwrap": null,
+  "_spec": "throw-down",
+  "_where": "/home/nick/github/yoyo-playground",
+  "author": {
+    "email": "=",
+    "name": "="
+  },
+  "bugs": {
+    "url": "https://github.com/silentcicero/throw-down/issues"
+  },
+  "dependencies": {},
   "description": "life cycle hooks for pure DOM elements",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "8a07a81ff6a63344d4535d56083019a6cddc8504",
+    "tarball": "https://registry.npmjs.org/throw-down/-/throw-down-0.0.3.tgz"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/silentcicero/throw-down.git"
-  },
+  "homepage": "https://github.com/silentcicero/throw-down#readme",
   "keywords": [
     "life",
     "cycle",
@@ -17,10 +59,23 @@
     "dom",
     "elements"
   ],
-  "author": "= <=>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/silentcicero/throw-down/issues"
+  "main": "index.js",
+  "maintainers": [
+    {
+      "email": "thenickdodson@gmail.com",
+      "name": "silentcicero"
+    }
+  ],
+  "name": "throw-down",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/silentcicero/throw-down.git"
   },
-  "homepage": "https://github.com/silentcicero/throw-down#readme"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.0.4"
 }
