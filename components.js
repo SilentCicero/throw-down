@@ -1,3 +1,3 @@
 var components = {}
 
-module.exports = components;
+module.exports = components

@@ -1,4 +1,4 @@
-## life cycle hooks for pure DOM elements
+## throw-down | life cycle hooks for pure DOM elements
 
 Make pure DOM components with a reliable life cycle.
 
