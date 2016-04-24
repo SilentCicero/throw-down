@@ -1,0 +1,26 @@
+{
+  "name": "throw-down",
+  "version": "0.0.3",
+  "description": "life cycle hooks for pure DOM elements",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/silentcicero/throw-down.git"
+  },
+  "keywords": [
+    "life",
+    "cycle",
+    "hooks",
+    "dom",
+    "elements"
+  ],
+  "author": "= <=>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/silentcicero/throw-down/issues"
+  },
+  "homepage": "https://github.com/silentcicero/throw-down#readme"
+}
