@@ -101,7 +101,7 @@ A morphdom/yoyo update helper that transports the `throw-down` ID from the input
 
 -   `morphdom` **Function** either the `morphdom` or `yo.update` methods
 
-Returns **Object** the update method `update(el, newEl, opts)`
+Returns **Function** the update method `update(el, newEl, opts)`
 
 ### note on component mutation
 
