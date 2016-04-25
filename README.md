@@ -123,12 +123,12 @@ Global `86.4%` browser support
 
 Throw-down helps compliment other module systems such as:
 
-yoyo - a tiny library for building modular UI components (uses bel/morphdom)
-bel - creates DOM elements from template strings
-morphdom - efficiently morphs DOM elements (without a virtual DOM)
-hyperx - tagged template string virtual dom builder
+ - yoyo - a tiny library for building modular UI components (uses bel/morphdom)
+ - bel - creates DOM elements from template strings
+ - morphdom - efficiently morphs DOM elements (without a virtual DOM)
+ - hyperx - tagged template string virtual dom builder
 
-## throw-down?
+## "throw-down"?
 
 The name `throw-down` was inspired by the great work done by @maxogden on yoyo, `throw-down` is the name of a yoyo trick.
 
