@@ -6,13 +6,16 @@ A tiny library for building pure modular DOM components with a reliable life cyc
 npm install --save throw-down
 ```
 
-- Works with yoyo/bel/vanilla DOM elements
-- Unopinionated, can be used with any DOM framework
-- Extremely tiny, weighs only `473 bytes` min+gz
-- Helper methods are isolated in separate modules
-- Allows DOM elements/components to have on load/unload/update hooks
-- Compatible with vanilla DOM elements and vanilla JS data structures
-- Zero dependencies
+## Features
+
+ - Unopinionated, can be used with any DOM framework
+ - Build your own helper methods as each are isolated in separate modules
+ - Works well with yoyo/bel/vanilla DOM elements
+ - Uses features available in browsers today instead of inventing new syntax/APIs
+ - Allows DOM elements/components to have `load`/`unload`/`update` hooks
+ - Compatible with vanilla DOM elements and vanilla JS data structures
+ - Zero dependencies, doesn't require tones of dev dependencies
+ - `.4kb` minified + gzipped, small enough for UI components to include as a dependency
 
 ## About
 
@@ -58,7 +61,7 @@ document.body.appendChild(Component(Component()));
 
 ## Installing
 
-You can get it from npm: npm install --save throw-down
+You can get it <a href="https://www.npmjs.com/package/throw-down">from npm</a>: `npm install --save throw-down`
 
 ## API
 
