@@ -14,7 +14,7 @@ npm install --save throw-down
  - Uses features available in browsers today instead of inventing new syntax/APIs
  - Allows DOM elements/components to have `load`/`unload`/`update` hooks
  - Compatible with vanilla DOM elements and vanilla JS data structures
- - Zero dependencies, doesn't require tones of dev dependencies
+ - Zero dependencies, doesn't require tons of dev dependencies
  - `0.4kb` minified + gzipped, small enough for UI components to include as a dependency
 
 ## About
