@@ -34,15 +34,14 @@ const Component = function(_yield) {
     var id, open
 
     function onload (node) {
-        id = node.dataset.tdid
+      id = node.dataset.tdid
     }
 
     function onupdate (node) {
-        id = node.dataset.tdid
+      id = node.dataset.tdid
     }
 
-    function onunload (node) {
-    }
+    function onunload (node) {}
 
     function toggle () {
       open = !open
@@ -58,6 +57,37 @@ const Component = function(_yield) {
 
 document.body.appendChild(Component(Component()));
 ```
+
+Without using `throw-down` ID's
+
+```js
+const yo = require("yo-yo")
+const connect = require("throw-down/connect")
+const update = require("throw-down/update")(yo.update)
+
+const Component = function(_yield) {
+    var el, open
+
+    function track (node) {
+      el = node
+    }
+
+    function toggle () {
+      open = !open
+      update(el, render(_yield))
+    }
+
+    function render (_yield) {
+      return yo`<div><button onclick=${toggle}>Toggle</button> ${open && "Open!" || "Closed!"} ${_yield}</div>`
+    }
+
+    return connect(render(_yield), track, null, track)
+}
+
+document.body.appendChild(Component());
+```
+
+Here we are just keeping track of the components target element while the DOM is morphing.
 
 ## Installing
 

@@ -27,7 +27,7 @@ if (window && window.MutationObserver) {
       }
     }
   })
-  observer.observe(document.body, {childList: true, subtree: true})
+  observer.observe(document.body, {childList: true, subtree: true, attributes: true})
 }
 
 module.exports = observer
