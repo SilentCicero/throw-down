@@ -1,33 +1,24 @@
-## throw-down | life cycle hooks for pure DOM elements
+# throw-down.js
 
-Make pure DOM components with a reliable life cycle.
+A tiny library for building pure modular DOM components with a reliable life cycle.
 
 ```
 npm install --save throw-down
 ```
 
-- works with yoyo/bel/vanilla DOM elements
-- unopinionated, can be used with any DOM framework
-- extremely tiny, weighs only `473 bytes` min+gz
-- helper methods are isolated in separate modules
-- allows DOM elements/components to have onload/onunload/onupdate hooks
+- Works with yoyo/bel/vanilla DOM elements
+- Unopinionated, can be used with any DOM framework
+- Extremely tiny, weighs only `473 bytes` min+gz
+- Helper methods are isolated in separate modules
+- Allows DOM elements/components to have on load/unload/update hooks
+- Compatible with vanilla DOM elements and vanilla JS data structures
+- Zero dependencies
 
-### why?
+## About
 
 Keeping track of a specific DOM node/element/component during DOM morphing is hard. `throw-down` makes it really easy. It provides life cycle hooks for your DOM components, so you can track of the life of the component as the DOM is morphed. Just `connect` your DOM component, and keep an eye on it with simple hooks that fire when the component is `loaded`, `unloaded` or `updated`. That's it!
 
-### modules
-
-The modules shipped with `throw-down`
-
-```js
-const observer = require("throw-down") // the new MutationObserver
-const connect = require("throw-down/connect")
-const retrieve = require("throw-down/retrieve")
-const update = require("throw-down/update")(yo.update) // yoyo/morphdom helper
-```
-
-### example
+## Example
 
 Used with the <a href="https://github.com/maxogden/yo-yo/">yoyo</a> UI framework
 
@@ -65,12 +56,21 @@ const Component = function(_yield) {
 document.body.appendChild(Component(Component()));
 ```
 
+## Installing
 
-### method breakdown
+You can get it from npm: npm install --save throw-down
 
-Here is a breakdown of the methods shipped with `throw-down`
+## API
 
-#### (1) connect
+The API methods shipped with `throw-down` -- 3 methods in total
+
+```js
+const connect = require("throw-down/connect")
+const retrieve = require("throw-down/retrieve")
+const update = require("throw-down/update")(yo.update) // yoyo/morphdom helper
+```
+
+### (1) connect
 
 Connects the DOM element target to `throw-down`
 
@@ -81,9 +81,9 @@ Connects the DOM element target to `throw-down`
 -   `removed` **Function** fired when the target DOM element is removed
 -   `mutated` **Function** fired when the target DOM element is mutated
 
-Returns **Object** the DOM element with the `dataset-tdid` tracker
+Returns **Object** - the DOM element with the `dataset-tdid` tracker
 
-#### (2) retrieve
+### (2) retrieve
 
 Retrieve the DOM element from the components cache
 
@@ -93,7 +93,7 @@ Retrieve the DOM element from the components cache
 
 Returns **Object** - the cached `throw-down` component
 
-#### (3) update
+### (3) update
 
 A morphdom/yoyo update helper that transports the `throw-down` ID from the input element to the other
 
@@ -101,26 +101,60 @@ A morphdom/yoyo update helper that transports the `throw-down` ID from the input
 
 -   `morphdom` **Function** either the `morphdom` or `yo.update` methods
 
-Returns **Function** the update method `update(el, newEl, opts)`
+Returns **Function** - the update method `update(el, newEl, opts)`
 
-### note on component mutation
+## Component mutation
 
 When you mutate your DOM element/component make sure you transport the `node.dataset.tdid` to the newly morphed component. Checkout the `./update.js` for more information.
 
-### MutationObserver
+## Compatibility/MutationObserver
 
-`throw-down` uses the window MutationObserver to track DOM mutation
+`throw-down` uses the window.MutationObserver to track DOM mutation
 
 Support for MutationObserver can be tracked here:
 http://caniuse.com/#search=MutationObserver
 
 Global `86.4%` browser support
 
-### throw-down?
+## Modules that work well with throw-down
 
-`throw-down` was inspired by the great work done by @maxogden on yoyo, `throw-down`
-is the name of a yoyo trick =D
+Throw-down helps compliment other module systems such as:
 
-### story
+yoyo - a tiny library for building modular UI components (uses bel/morphdom)
+bel - creates DOM elements from template strings
+morphdom - efficiently morphs DOM elements (without a virtual DOM)
+hyperx - tagged template string virtual dom builder
+
+## throw-down?
+
+The name `throw-down` was inspired by the great work done by @maxogden on yoyo, `throw-down` is the name of a yoyo trick.
+
+## Story
 
 https://github.com/maxogden/yo-yo/issues/15
+
+## License
+
+```
+The MIT License (MIT)
+
+Copyright (c) 2016 Nick Dodson
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
