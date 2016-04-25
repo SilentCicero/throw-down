@@ -15,7 +15,7 @@ npm install --save throw-down
  - Allows DOM elements/components to have `load`/`unload`/`update` hooks
  - Compatible with vanilla DOM elements and vanilla JS data structures
  - Zero dependencies, doesn't require tones of dev dependencies
- - `.4kb` minified + gzipped, small enough for UI components to include as a dependency
+ - `0.4kb` minified + gzipped, small enough for UI components to include as a dependency
 
 ## About
 
@@ -121,7 +121,7 @@ Global `86.4%` browser support
 
 ## Modules that work well with throw-down
 
-Throw-down helps compliment other module systems such as:
+`throw-down` helps compliment other module systems such as:
 
  - yoyo - a tiny library for building modular UI components (uses bel/morphdom)
  - bel - creates DOM elements from template strings
