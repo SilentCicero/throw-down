@@ -66,11 +66,11 @@ document.body.appendChild(Component(Component()));
 ```
 
 
-### methods
+### method breakdown
 
-These are the methods shipped with `throw-down`
+Here is a breakdown of the methods shipped with `throw-down`
 
-#### connect
+#### (1) connect
 
 Connects the DOM element target to `throw-down`
 
@@ -83,7 +83,7 @@ Connects the DOM element target to `throw-down`
 
 Returns **Object** the DOM element with the `dataset-tdid` tracker
 
-#### retrieve
+#### (2) retrieve
 
 Retrieve the DOM element from the components cache
 
@@ -93,7 +93,7 @@ Retrieve the DOM element from the components cache
 
 Returns **Object** - the cached `throw-down` component
 
-#### update
+#### (3) update
 
 A morphdom/yoyo update helper that transports the `throw-down` ID from the input element to the other
 
