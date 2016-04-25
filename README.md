@@ -10,10 +10,15 @@ npm install --save throw-down
 - unopinionated, can be used with any DOM framework
 - extremely tiny, weighs only `473 bytes` min+gz
 - helper methods are isolated in separate modules
+- allows DOM elements/components to have onload/onunload/onupdate hooks
+
+### why?
+
+Keeping track of a specific DOM node/element/component during DOM morphing is hard. `throw-down` makes it really easy. It provides life cycle hooks for your DOM components, so you can track of the life of the component as the DOM is morphed. Just `connect` your DOM component, and keep an eye on it with simple hooks that fire when the component is `loaded`, `unloaded` or `updated`. That's it!
 
 ### modules
 
-The modules exported with `throw-down`
+The modules shipped with `throw-down`
 
 ```js
 const observer = require("throw-down") // the new MutationObserver
@@ -59,6 +64,48 @@ const Component = function(_yield) {
 
 document.body.appendChild(Component(Component()));
 ```
+
+
+### methods
+
+These are the methods shipped with `throw-down`
+
+#### connect
+
+Connects the DOM element target to `throw-down`
+
+**Parameters**
+
+-   `element` **Object** the pure DOM element you want to track
+-   `added` **Function** fired when the target DOM element is loaded
+-   `removed` **Function** fired when the target DOM element is removed
+-   `mutated` **Function** fired when the target DOM element is mutated
+
+Returns **Object** the DOM element with the `dataset-tdid` tracker
+
+#### retrieve
+
+Retrieve the DOM element from the components cache
+
+**Parameters**
+
+-   `id` **String** the `throw-down` element ID
+
+Returns **Object** - the cached `throw-down` component
+
+#### update
+
+A morphdom/yoyo update helper that transports the `throw-down` ID from the input element to the other
+
+**Parameters**
+
+-   `morphdom` **Function** either the `morphdom` or `yo.update` methods
+
+Returns **Object** the update method `update(el, newEl, opts)`
+
+### note on component mutation
+
+When you mutate your DOM element/component make sure you transport the `node.dataset.tdid` to the newly morphed component. Checkout the `./update.js` for more information.
 
 ### MutationObserver
 
