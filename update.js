@@ -1,4 +1,4 @@
-var retrieve = require("./retrieve")
+var components = require("./components"), retrieve = require("./retrieve")
 
 function update (morphdom) {
   return function main (el, newEl, opts) {

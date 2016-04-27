@@ -15,11 +15,11 @@ npm install --save throw-down
  - Allows DOM elements/components to have `load`/`unload`/`update` hooks
  - Compatible with vanilla DOM elements and vanilla JS data structures
  - Zero dependencies, doesn't require tons of dev dependencies
- - `0.4kb` minified + gzipped, small enough for UI components to include as a dependency
+ - `0.5kb` minified + gzipped, small enough for UI components to include as a dependency
 
 ## About
 
-Keeping track of a specific DOM node/element/component during DOM morphing is hard. `throw-down` makes it really easy. It provides life cycle hooks for your DOM components, so you can track of the life of the component as the DOM is morphed. Just `connect` your DOM component, and keep an eye on it with simple hooks that fire when the component is `loaded`, `unloaded` or `updated`. That's it!
+Keeping track of a specific DOM node/element/component during DOM morphing is hard. `throw-down` makes it really easy. It provides life cycle hooks for your DOM components, so you can track of the life of the component as the DOM is morphed. Just `connect` your DOM component, and keep an eye on it with simple hooks that fire when the component is `constructed`, `loaded`, `updated`, `mutated`, `unloaded`. That's it!
 
 ## Example
 
@@ -31,28 +31,26 @@ const connect = require("throw-down/connect")
 const update = require("throw-down/update")(yo.update)
 
 const Component = function(_yield) {
-    var id, open
+    var id, open = true
 
-    function onload (node) {
-      id = node.dataset.tdid
+    function construct (_id) {
+      id = _id
     }
 
-    function onupdate (node) {
-      id = node.dataset.tdid
-    }
-
-    function onunload (node) {}
+    function loaded (node) {}
+    function mutated (node) {}
+    function unloaded (node) {}
 
     function toggle () {
       open = !open
-      update(id, render(_yield))
+      update(id, render())
     }
 
-    function render (_yield) {
+    function render () {
       return yo`<div><button onclick=${toggle}>Toggle</button> ${open && "Open!" || "Closed!"} ${_yield}</div>`
     }
 
-    return connect(render(_yield), onload, onunload, onupdate)
+    return connect(render, construct, loaded, mutated, unloaded)
 }
 
 document.body.appendChild(Component(Component()));
@@ -66,7 +64,7 @@ const connect = require("throw-down/connect")
 const update = require("throw-down/update")(yo.update)
 
 const Component = function(_yield) {
-    var el, open
+    var el, open = true
 
     function track (node) {
       el = node
@@ -74,14 +72,14 @@ const Component = function(_yield) {
 
     function toggle () {
       open = !open
-      update(el, render(_yield))
+      update(el, render())
     }
 
-    function render (_yield) {
+    function render () {
       return yo`<div><button onclick=${toggle}>Toggle</button> ${open && "Open!" || "Closed!"} ${_yield}</div>`
     }
 
-    return connect(render(_yield), track, null, track)
+    return connect(render, null, track, track)
 }
 
 document.body.appendChild(Component());
@@ -109,10 +107,11 @@ Connects the DOM element target to `throw-down`
 
 **Parameters**
 
--   `element` **Object** the pure DOM element you want to track
+-   `element` **Function** the render method that returns a pure DOM element you want to track
+-   `constructed` **Function** fired once before the element is rendered
 -   `added` **Function** fired when the target DOM element is loaded
--   `removed` **Function** fired when the target DOM element is removed
 -   `mutated` **Function** fired when the target DOM element is mutated
+-   `removed` **Function** fired when the target DOM element is removed
 
 Returns **Object** - the DOM element with the `dataset-tdid` tracker
 
@@ -140,6 +139,22 @@ Returns **Function** - the update method `update(el, newEl, opts)`
 
 When you mutate your DOM element/component make sure you transport the `node.dataset.tdid` to the newly morphed component. Checkout the `./update.js` for more information.
 
+## Experimental
+
+Note, this package is highly experimental, it uses the MutationObserver, we don't know how fast this module will be in production. More tests are needed. Please report all issues to the github repository.
+
+## Building Your Own Life Cycle
+
+If you would like more React like life cycle hooks, you can do so by modifying the `update` and `connect` modules. Hooks you will need to provide are the added, mutated and removed hooks for the DOM observer.
+
+## Garbage Collection
+
+Once the component is unloaded, the `removed` hook is fired, and the component is removed from the local `components` cache.
+
+## ID Exchange
+
+Presently, if a mutation occurs where the `dataset-tdid` is morphed (i.e identical component replacement), this mutation is flagged as a component `unload`. This may be changed in the future.
+
 ## Compatibility/MutationObserver
 
 `throw-down` uses the window.MutationObserver to track DOM mutation
@@ -149,6 +164,8 @@ http://caniuse.com/#search=MutationObserver
 
 Global `86.4%` browser support
 
+-- throw-down has support for `IE9+`, IE9- can be accomplished by removing the `forEach` statements in `./index.js`
+
 ## Modules that work well with throw-down
 
 `throw-down` helps compliment other module systems such as:
@@ -156,11 +173,16 @@ Global `86.4%` browser support
  - yoyo - a tiny library for building modular UI components (uses bel/morphdom)
  - bel - creates DOM elements from template strings
  - morphdom - efficiently morphs DOM elements (without a virtual DOM)
- - hyperx - tagged template string virtual dom builder
+ - hyperx - tagged template string virtual DOM builder
 
 ## "throw-down"?
 
 The name `throw-down` was inspired by the great work done by @maxogden on yoyo, `throw-down` is the name of a yoyo trick.
+
+## Similar Packages
+
+<a href="https://github.com/shama/on-load">on-load</a> | by Kyle Robinson Young @shama
+<a href="https://github.com/chromakode/diablo">diablo</a> | by Max Goodman @chromakode
 
 ## Story
 

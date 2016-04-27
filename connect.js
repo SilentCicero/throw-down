@@ -1,10 +1,11 @@
 var components = require("./components"), observer = require("./index")
 
-function connect (el, l, u, m) {
-  el.dataset.tdid = "id" + parseInt(Math.random() * 10000000)
+function connect (el, c, l, m, r) {
+  var id = "a" + parseInt(Math.random() * 10000000), f = function(){}
+  c && c(id); el = el()
+  el.dataset.tdid = id
   components[el.dataset.tdid] = {
-    node: el, added: (l || function() {}),
-    mutated: (m || function() {}), removed: (u || function() {})
+    node: el, added: (l || f), mutated: (m || f), removed: (r || f)
   }
   return el
 }
