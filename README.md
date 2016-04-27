@@ -19,7 +19,7 @@ npm install --save throw-down
 
 ## About
 
-Keeping track of a specific DOM node/element/component during DOM morphing is hard. `throw-down` makes it really easy. It provides life cycle hooks for your DOM components, so you can track of the life of the component as the DOM is morphed. Just `connect` your DOM component, and keep an eye on it with simple hooks that fire when the component is `constructed`, `loaded`, `updated`, `mutated`, `unloaded`. That's it!
+Keeping track of a specific DOM node/element/component during DOM morphing is hard. `throw-down` makes it really easy. It provides life cycle hooks for your DOM components, so you can track of the life of the component as the DOM is morphed. Just `connect` your DOM component, and keep an eye on it with simple hooks that fire when the component is `constructed`, `loaded`, `mutated`, `unloaded`. That's it!
 
 ## Example
 
