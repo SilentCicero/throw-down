@@ -4,7 +4,7 @@ function connect (el, c, l, m, r) {
   var id = "a" + parseInt(Math.random() * 10000000), f = function(){}
   c && c(id); el = el()
   el.dataset.tdid = id
-  components[el.dataset.tdid] = {
+  components[id] = {
     node: el, added: (l || f), mutated: (m || f), removed: (r || f)
   }
   return el

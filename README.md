@@ -56,7 +56,7 @@ const Component = function(_yield) {
 document.body.appendChild(Component(Component()));
 ```
 
-Without using `throw-down` ID's
+Without using `throw-down` ID's, tracking the target element as the DOM morphs
 
 ```js
 const yo = require("yo-yo")
@@ -85,7 +85,60 @@ const Component = function(_yield) {
 document.body.appendChild(Component());
 ```
 
-Here we are just keeping track of the components target element while the DOM is morphing.
+React/es6/yo component simulation (`0.6kb`). Note, not all react component methods are available yet.
+
+```js
+"use strict";
+const yo = require("yo-yo")
+const Component = require("throw-down/react-component")
+
+class MyComponent extends Component {
+  constructor (props) {
+    super(props) //<- required
+    this.setState({open: true})
+  }
+
+  toggle () {
+    var state = this.getState()
+    state.open = !state.open
+    this.setState(state)
+  }
+
+  componentDidMount () {
+    console.log("Mounted!")
+  }
+
+  componentDidUpdate () {
+    console.log("Updated!")
+  }
+
+  componentDidUnmount () {
+    console.log("Unmount!")
+  }
+
+  render () {
+    var state = this.getState()
+
+    return yo`
+      <div>
+        <button onclick=${this.toggle.bind(this)}>Toggle</button>
+        ${state.open && yo`<div>Open!</div>` || "Closed!"}
+        ${this.props.children}
+      </div>
+    `
+  }
+}
+
+export default MyComponent
+```
+
+```js
+const yo = require("yo-yo")
+const connect = require("throw-down/react-connect")(yo.update)
+const MyComponent = connect(require("./MyComponent"))
+
+document.body.appendChild(MyComponent({someProp: 1}, "Inner Content"))
+```
 
 ## Installing
 
@@ -93,7 +146,7 @@ You can get it <a href="https://www.npmjs.com/package/throw-down">from npm</a>: 
 
 ## API
 
-The API methods shipped with `throw-down` -- 3 methods in total
+The API methods shipped with `throw-down` -- 3 methods in total (not including React simulation)
 
 ```js
 const connect = require("throw-down/connect")
@@ -134,6 +187,16 @@ A morphdom/yoyo update helper that transports the `throw-down` ID from the input
 -   `morphdom` **Function** either the `morphdom` or `yo.update` methods
 
 Returns **Function** - the update method `update(el, newEl, opts)`
+
+## Tag & Watch Design
+
+All `throw-down` does, is tag and watch a specific DOM element. `Connect` tags and sets up the element/cache, `update` helps carry the tag, and the `MutationObserver` does the watching. This is meant to simulate, not RECREATE component architectures for DOM components.
+
+## React Simulation
+
+Please note, the React simulation is just a simulation. It does not meet all React component standards yet. Only the `componentDidMount`, `componentDidUpdate`, `componentDidUnmount` and `shouldComponentUpdate` life cycle hooks are available. More hooks to come.
+
+Also note, `componentDidUpdate` will fire on every DOM mutation. This may mean, your component could update several times with one internal `setState` change.
 
 ## Component mutation
 
@@ -181,8 +244,8 @@ The name `throw-down` was inspired by the great work done by @maxogden on yoyo, 
 
 ## Similar Packages
 
-<a href="https://github.com/shama/on-load">on-load</a> | by Kyle Robinson Young @shama
-<a href="https://github.com/chromakode/diablo">diablo</a> | by Max Goodman @chromakode
+ - <a href="https://github.com/shama/on-load">on-load</a> | by Kyle Robinson Young @shama
+ - <a href="https://github.com/chromakode/diablo">diablo</a> | by Max Goodman @chromakode
 
 ## Story
 
