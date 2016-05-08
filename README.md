@@ -150,11 +150,10 @@ module.exports = connect
 const yo = require("yo-yo")
 const connect = require("./connect")
 
-const Component = function (props) {
-  var id, store
+const Component = function () {
+  var store
 
-  function init (_id, _store) {
-    id = _id
+  function init (id, _store) {
     store = _store
   }
 
@@ -165,7 +164,13 @@ const Component = function (props) {
   function render () {
     let { name } = store.getState()
 
-    return yo`<div> <button onclick=${changeName}>Change Name</button> Current Name: ${name} </div>`
+    return yo`
+    <div>
+      <button onclick=${changeName}>Change Name</button>
+
+      Current Name: ${name}
+    </div>
+    `
   }
 
   return connect(mapState)(render, init)
