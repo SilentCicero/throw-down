@@ -19,7 +19,7 @@ npm install --save throw-down
 
 ## About
 
-Keeping track of a specific DOM node/element/component during DOM morphing is hard. `throw-down` makes it really easy. It provides life cycle hooks for your DOM components, so you can track of the life of the component as the DOM is morphed. Just `connect` your DOM component, and keep an eye on it with simple hooks that fire when the component is `constructed`, `loaded`, `mutated`, `unloaded`. That's it!
+Keeping track of a specific DOM node/element/component during DOM morphing is hard. `throw-down` makes it really easy. It provides packed life cycle hooks for your DOM components, so you can track of the life of the component as the DOM is morphed. Just `connect` your DOM component, and keep an eye on it with simple hooks that fire when the component is `constructed` (fired before first render), `loaded`, `mutated`, `unloaded`. That's it!
 
 ## Example
 
@@ -85,7 +85,7 @@ const Component = function(_yield) {
 document.body.appendChild(Component());
 ```
 
-React/es6/yo component simulation (`0.6kb`). Note, not all react component methods are available yet.
+React/ES6 component simulator using `yo-yo` (`0.6kb`). Note, not all react component methods are available with `react-connect`.
 
 ```js
 "use strict";
@@ -104,17 +104,9 @@ class MyComponent extends Component {
     this.setState(state)
   }
 
-  componentDidMount () {
-    console.log("Mounted!")
-  }
-
-  componentDidUpdate () {
-    console.log("Updated!")
-  }
-
-  componentDidUnmount () {
-    console.log("Unmount!")
-  }
+  componentDidMount () {}
+  componentDidUpdate () {}
+  componentDidUnmount () {}
 
   render () {
     var state = this.getState()
@@ -140,6 +132,56 @@ const MyComponent = connect(require("./MyComponent"))
 document.body.appendChild(MyComponent({someProp: 1}, "Inner Content"))
 ```
 
+how about a Redux connect:
+
+```js
+const yo = require("yo-yo")
+const store = require("./store") // <= your redux configured store
+const _connect = require("throw-down/connect")
+const _update = require("throw-down/update")(yo.update)
+const configureConnect = require("throw-down/redux-connect")
+
+const connect = configureConnect(store, _connect, _update) // <= build connect
+
+module.exports = connect
+```
+
+```js
+const yo = require("yo-yo")
+const connect = require("./connect")
+
+const Component = function (props) {
+  var id, store
+
+  function init (_id, _store) {
+    id = _id
+    store = _store
+  }
+
+  function changeName () {
+    store.dispatch({type: 'CHANGE_NAME', name: "Nick"})
+  }
+
+  function render () {
+    let { name } = store.getState()
+
+    return yo`<div> <button onclick=${changeName}>Change Name</button> Current Name: ${name} </div>`
+  }
+
+  return connect(mapState)(render, init)
+}
+
+function mapState (state) {
+  return {
+    name: state.Component.name
+  }
+}
+
+document.body.appendChild(Component())
+```
+
+Note, here `Component` will auto-render when the mapped portions of the Redux state have changed. A special store object is fed through the `init` method that contains a scoped `getState` and `dispatch` method.
+
 ## Installing
 
 You can get it <a href="https://www.npmjs.com/package/throw-down">from npm</a>: `npm install --save throw-down`
@@ -156,7 +198,7 @@ const update = require("throw-down/update")(yo.update) // yoyo/morphdom helper
 
 ### (1) connect
 
-Connects the DOM element target to `throw-down`
+Connects the DOM element target to `throw-down` (packed cycle hooks)
 
 **Parameters**
 
@@ -197,6 +239,10 @@ All `throw-down` does, is tag and watch a specific DOM element. `Connect` tags a
 Please note, the React simulation is just a simulation. It does not meet all React component standards yet. Only the `componentDidMount`, `componentDidUpdate`, `componentDidUnmount` and `shouldComponentUpdate` life cycle hooks are available. More hooks to come.
 
 Also note, `componentDidUpdate` will fire on every DOM mutation. This may mean, your component could update several times with one internal `setState` change.
+
+## Redux Connect
+
+The `redux-connect` module weighs about `0.5kb` minified and g-zipped. You have to provide a `connect` and `update` method to it, along with your configured Redux store. If a mapState method is not provided, it will provide the component with the whole Redux state. It is strongly recommended you provide a `mapState` method for each component you connect to the Redux state.
 
 ## Component mutation
 
